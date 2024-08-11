@@ -440,6 +440,9 @@ wk.register({
   },
   a = {
     name = 'ch[a]t',
-    q = {':OllamaQuickChat<cr>', 'Ollama [Q]uick Chat'}
+    q = {':OllamaQuickChat<cr>', 'Ollama [Q]uick Chat'},
+    n = {'<cmd>OllamaCreateNewChat<cr>', 'Create Ollama [N]ew Chat'},
+    o = {'<cmd>OllamaContinueChat<cr>', 'C[o]ntinue Ollama Chat'},
+    a = {'<cmd>OllamaChat<cr>', 'Ollama Ch[a]t'},
   }
 }, { mode = 'n', prefix = '<leader>' })
