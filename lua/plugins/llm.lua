@@ -1,5 +1,6 @@
 return {
   "gerazov/ollama-chat.nvim",
+  enable = true,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "stevearc/dressing.nvim",
@@ -59,9 +60,9 @@ return {
     -- you can also choose "current" and "tmp"
     quick_chat_file = "ollama-chat.md",
     animate_spinner = true,  -- set this to false to disable spinner animation
-    model = "openhermes2-mistral",
+    model = "llama3.1",
     model_code = "codellama",
-    url = "http://127.0.0.1:11434",
+    url = "http://100.79.79.53:11434",
     serve = {
       on_start = false,
       command = "ollama",
