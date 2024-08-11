@@ -17,43 +17,7 @@ return {
     "OllamaServeStop"
   },
 
-  keys = {
-    {
-      "<leader>ocq",
-      "<cmd>OllamaQuickChat<cr>",
-      desc = "Ollama Quick Chat",
-      mode = { "n", "x" },
-      silent = true,
-    },
-    {
-      "<leader>ocn",
-      "<cmd>OllamaCreateNewChat<cr>",
-      desc = "Create Ollama Chat",
-      mode = { "n", "x" },
-      silent = true,
-    },
-    {
-      "<leader>occ",
-      "<cmd>OllamaContinueChat<cr>",
-      desc = "Continue Ollama Chat",
-      mode = { "n", "x" },
-      silent = true,
-    },
-    {
-      "<leader>och",
-      "<cmd>OllamaChat<cr>",
-      desc = "Chat",
-      mode = { "n" },
-      silent = true,
-    },
-    {
-      "<leader>ocd",
-      "<cmd>OllamaChatCode<cr>",
-      desc = "Chat Code",
-      mode = { "n" },
-      silent = true,
-    },
-  },
+  keys = {},
 
   opts = {
     chats_folder = vim.fn.stdpath("data"), -- data folder is ~/.local/share/nvim
