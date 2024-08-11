@@ -438,4 +438,8 @@ wk.register({
     name = 'e[x]ecute',
     x = { ':w<cr>:source %<cr>', '[x] source %' },
   },
+  a = {
+    name = 'ch[a]t',
+    q = {':OllamaQuickChat<cr>', 'Ollama [Q]uick Chat'}
+  }
 }, { mode = 'n', prefix = '<leader>' })
