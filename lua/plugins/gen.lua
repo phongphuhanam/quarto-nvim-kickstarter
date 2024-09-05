@@ -8,9 +8,9 @@ return {
         quit_map = "q", -- set keymap for close the response window
         retry_map = "<c-r>", -- set keymap to re-send the current prompt
         accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result
-        host = "100.79.79.53", -- The host running the Ollama service.
+        host = (os.getenv("OLLAMA_HOST") or "127.0.0.1"),
         port = "11434", -- The port on which the Ollama service is listening.
-        display_mode = "float", -- The display mode. Can be "float" or "split" or "horizontal-split".
+        display_mode = "horizontal-split", -- The display mode. Can be "float" or "split" or "horizontal-split".
         show_prompt = false, -- Shows the prompt submitted to Ollama.
         show_model = false, -- Displays which model you are using at the beginning of your chat session.
         no_auto_close = false, -- Never closes the window automatically.
