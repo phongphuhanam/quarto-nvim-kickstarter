@@ -26,7 +26,7 @@ return {
     animate_spinner = true,  -- set this to false to disable spinner animation
     model = "llama3.1",
     model_code = "codellama",
-    url = "http://100.79.79.53:11434",
+    url = (os.getenv("OLLAMA_HOST") or "127.0.0.1") .. ":" .. tonumber(os.getenv("OLLAMA_PORT") or 11434),
     serve = {
       on_start = false,
       command = "ollama",
