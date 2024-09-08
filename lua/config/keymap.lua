@@ -236,6 +236,7 @@ wk.register({
 wk.register({
   p = { '"_dP', 'replace without overwriting reg' },
   d = { '"_d', 'delete without overwriting reg' },
+  g = {'<cmd>\'<,\'> Gen<cr>', '[G]en text selection'},
 }, { mode = 'v', prefix = '<leader>' })
 
 -- insert mode
@@ -444,6 +445,6 @@ wk.register({
     n = {'<cmd>OllamaCreateNewChat<cr>', 'Create Ollama [N]ew Chat'},
     o = {'<cmd>OllamaContinueChat<cr>', 'C[o]ntinue Ollama Chat'},
     a = {'<cmd>OllamaChat<cr>', 'Ollama Ch[a]t'},
-    g = {'<cmd>\'<,\'> Gen<cr>', '[G]en text selection'}
+    g = {'<cmd>Gen<cr>', '[G]en'}
   }
 }, { mode = 'n', prefix = '<leader>' })
