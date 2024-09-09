@@ -34,7 +34,26 @@ return {
       vim.fn.sign_define('DapBreakpoint', { text = '🦆', texthl = '', linehl = '', numhl = '' })
       local dap = require 'dap'
       local ui = require 'dapui'
-      require('dapui').setup()
+      -- https://github.com/rcarriga/nvim-dap-ui/issues/320
+      local ui_config = {
+              icons = { expanded = "🞃", collapsed = "🞂", current_frame = "→" },
+              controls = {
+                icons = {
+                  pause = "⏸",
+                  play = "⯈",
+                  step_into = "↴",
+                  step_over = "↷",
+                  step_out = "↑",
+                  step_back = "↶",
+                  run_last = "🗘",
+                  terminate = "🕱",
+                  disconnect = "⏻"
+              }
+          }
+      }
+
+      require("dapui").setup(ui_config)
+      -- require('dapui').setup()
       require('dap-python').setup()
       require('dap.ext.vscode').load_launchjs 'launch.json'
 
