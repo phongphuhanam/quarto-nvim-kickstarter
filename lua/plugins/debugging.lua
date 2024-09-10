@@ -36,18 +36,18 @@ return {
       local ui = require 'dapui'
       -- https://github.com/rcarriga/nvim-dap-ui/issues/320
       local ui_config = {
-              icons = { expanded = "e", collapsed = "c", current_frame = "→" },
+              icons = { expanded = "📖", collapsed = "📕", current_frame = "→" },
               controls = {
                 icons = {
-                  pause = "⏸",
-                  play = "≥",
+                  pause = "⏸️",
+                  play = "⏯️",
                   step_into = "↴",
                   step_over = "↷",
                   step_out = "↑",
                   step_back = "↶",
-                  run_last = "l",
-                  terminate = "†",
-                  disconnect = "⏻"
+                  run_last = "🔁",
+                  terminate = "❌",
+                  disconnect = "🆘"
               }
           }
       }
