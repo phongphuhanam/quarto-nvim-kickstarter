@@ -445,6 +445,7 @@ wk.register({
     n = {'<cmd>OllamaCreateNewChat<cr>', 'Create Ollama [N]ew Chat'},
     o = {'<cmd>OllamaContinueChat<cr>', 'C[o]ntinue Ollama Chat'},
     a = {'<cmd>OllamaChat<cr>', 'Ollama Ch[a]t'},
-    g = {'<cmd>Gen<cr>', '[G]en'}
+    g = {'<cmd>Gen<cr>', '[G]en'},
+    s = {':lua require("gen").select_model()<cr>', 'Gen [S]elect model'},
   }
 }, { mode = 'n', prefix = '<leader>' })
