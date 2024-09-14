@@ -13,18 +13,15 @@ return {
       require('nvim-treesitter.configs').setup {
         auto_install = true,
         ensure_installed = {
-          'r',
           'python',
           'markdown',
           'markdown_inline',
-          'julia',
           'bash',
           'yaml',
           'lua',
           'vim',
           'query',
           'vimdoc',
-          'latex', -- requires tree-sitter-cli (installed automatically via Mason)
           'html',
           'css',
           'dot',
