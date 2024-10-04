@@ -97,6 +97,7 @@ return {
       { '<leader>di', ":lua require'dap'.step_into()<cr>", desc = 'debug [i]nto' },
       { '<leader>dr', ":lua require'dap'.repl_open()<cr>", desc = 'debug [r]epl' },
       { '<leader>du', ":lua require'dapui'.toggle()<cr>", desc = 'debug [u]i' },
+      { 'ge', ":lua require'dap.ui.widgets'.hover()<cr>", desc = 'debug hov[e]r' },
     },
   },
 }
