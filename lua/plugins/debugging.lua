@@ -36,7 +36,7 @@ return {
       local ui = require 'dapui'
       -- https://github.com/rcarriga/nvim-dap-ui/issues/320
       local ui_config = {
-        icons = { expanded = '📖', collapsed = '📕', current_frame = '→' },
+        icons = { expanded = '📖', collapsed = '📕', current_frame = '👉' },
         controls = {
           icons = {
             pause = '⏸️',
