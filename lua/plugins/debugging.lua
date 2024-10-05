@@ -103,6 +103,7 @@ return {
       { '<leader>du', ":lua require'dapui'.toggle()<cr>", desc = 'debug [u]i' },
       { 'ge', ":lua require'dap.ui.widgets'.hover()<cr>", desc = 'debug hov[e]r' },
       { 'gv', ":lua require'dapui'.eval()<cr>", desc = 'debug e[v]al' },
+      { 'gp', ":lua require'dapui'.eval(require'dapui.util'.get_current_expr() .. '.shape')<cr>", 'debug eval shape' },
     },
   },
 }
