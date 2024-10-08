@@ -240,13 +240,13 @@ wk.add({
 }, { mode = { "v" }, prefix = "<leader>" })
 
 -- insert mode
-wk.register({
-  ["<m-->"] = { " <- ", "assign" },
-  ["<m-m>"] = { " |>", "pipe" },
-  ["<m-i>"] = { insert_r_chunk, "r code chunk" },
-  ["<cm-i>"] = { insert_py_chunk, "python code chunk" },
-  ["<m-I>"] = { insert_py_chunk, "python code chunk" },
-  ["<c-x><c-x>"] = { "<c-x><c-o>", "omnifunc completion" },
+wk.add({
+  { "<c-x><c-x>", "<c-x><c-o>", desc = "omnifunc completion" },
+  { "<cm-i>", insert_py_chunk, desc = "python code chunk" },
+  { "<m-->", " <- ", desc = "assign" },
+  { "<m-I>", insert_py_chunk, desc = "python code chunk" },
+  { "<m-i>", insert_r_chunk, desc = "r code chunk" },
+  { "<m-m>", " |>", desc = "pipe" },
 }, { mode = "i" })
 
 local function new_terminal(lang)
