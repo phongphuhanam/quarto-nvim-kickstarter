@@ -206,30 +206,30 @@ end
 --show up in the popup as well
 
 -- normal mode
-wk.register({
-  ["<c-LeftMouse>"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "go to definition" },
-  ["<c-q>"] = { "<cmd>q<cr>", "close buffer" },
-  ["<esc>"] = { "<cmd>noh<cr>", "remove search highlight" },
-  ["n"] = { "nzzzv", "center search" },
-  ["gN"] = { "Nzzzv", "center search" },
-  ["gl"] = { "<c-]>", "open help link" },
-  ["gf"] = { ":e <cfile><CR>", "edit file" },
-  ["<m-i>"] = { insert_r_chunk, "r code chunk" },
-  ["<cm-i>"] = { insert_py_chunk, "python code chunk" },
-  ["<m-I>"] = { insert_py_chunk, "python code chunk" },
-  ["]q"] = { ":silent cnext<cr>", "[q]uickfix next" },
-  ["[q"] = { ":silent cprev<cr>", "[q]uickfix prev" },
-  ["z?"] = { ":setlocal spell!<cr>", "toggle [z]pellcheck" },
-  ["zl"] = { ":Telescope spell_suggest<cr>", "[l]ist spelling suggestions" },
+wk.add({
+  { "<c-LeftMouse>", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "go to definition" },
+  { "<c-q>", "<cmd>q<cr>", desc = "close buffer" },
+  { "<cm-i>", insert_py_chunk, desc = "python code chunk" },
+  { "<esc>", "<cmd>noh<cr>", desc = "remove search highlight" },
+  { "<m-I>", insert_py_chunk, desc = "python code chunk" },
+  { "<m-i>", insert_r_chunk, desc = "r code chunk" },
+  { "[q", ":silent cprev<cr>", desc = "[q]uickfix prev" },
+  { "]q", ":silent cnext<cr>", desc = "[q]uickfix next" },
+  { "gN", "Nzzzv", desc = "center search" },
+  { "gf", ":e <cfile><CR>", desc = "edit file" },
+  { "gl", "<c-]>", desc = "open help link" },
+  { "n", "nzzzv", desc = "center search" },
+  { "z?", ":setlocal spell!<cr>", desc = "toggle [z]pellcheck" },
+  { "zl", ":Telescope spell_suggest<cr>", desc = "[l]ist spelling suggestions" },
 }, { mode = "n", silent = true })
 
 -- visual mode
-wk.register({
-  ["<cr>"] = { send_region, "run code region" },
-  ["<M-j>"] = { ":m'>+<cr>`<my`>mzgv`yo`z", "move line down" },
-  ["<M-k>"] = { ":m'<-2<cr>`>my`<mzgv`yo`z", "move line up" },
-  ["."] = { ":norm .<cr>", "repat last normal mode command" },
-  ["q"] = { ":norm @q<cr>", "repat q macro" },
+wk.add({
+  { ".", ":norm .<cr>", desc = "repat last normal mode command" },
+  { "<M-j>", ":m'>+<cr>`<my`>mzgv`yo`z", desc = "move line down" },
+  { "<M-k>", ":m'<-2<cr>`>my`<mzgv`yo`z", desc = "move line up" },
+  { "<cr>", send_region, desc = "run code region" },
+  { "q", ":norm @q<cr>", desc = "repat q macro" },
 }, { mode = "v" })
 
 -- visual with <leader>
