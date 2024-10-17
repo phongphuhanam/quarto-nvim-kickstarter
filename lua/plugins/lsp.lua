@@ -72,6 +72,7 @@ return {
           'isort',
           'tree-sitter-cli',
           'jupytext',
+          'fixjson',
         },
       }
 
@@ -115,11 +116,11 @@ return {
 
       vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = require('misc.style').border })
       vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = require('misc.style').border })
-      vim.lsp.handlers[ms.textDocument_definition] = handlers.telescope_handler_factory(ms.textDocument_definition, "Definition")
-      vim.lsp.handlers[ms.textDocument_typeDefinition] = handlers.telescope_handler_factory(ms.textDocument_typeDefinition, "Type Definition")
-      vim.lsp.handlers[ms.textDocument_references] = handlers.telescope_handler_factory(ms.textDocument_references, "References")
-      vim.lsp.handlers[ms.textDocument_implementation] = handlers.telescope_handler_factory(ms.textDocument_implementation, "Implementations")
-      vim.lsp.handlers[ms.textDocument_documentSymbol] = handlers.telescope_handler_factory(ms.textDocument_documentSymbol, "Document Symbols")
+      vim.lsp.handlers[ms.textDocument_definition] = handlers.telescope_handler_factory(ms.textDocument_definition, 'Definition')
+      vim.lsp.handlers[ms.textDocument_typeDefinition] = handlers.telescope_handler_factory(ms.textDocument_typeDefinition, 'Type Definition')
+      vim.lsp.handlers[ms.textDocument_references] = handlers.telescope_handler_factory(ms.textDocument_references, 'References')
+      vim.lsp.handlers[ms.textDocument_implementation] = handlers.telescope_handler_factory(ms.textDocument_implementation, 'Implementations')
+      vim.lsp.handlers[ms.textDocument_documentSymbol] = handlers.telescope_handler_factory(ms.textDocument_documentSymbol, 'Document Symbols')
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
@@ -135,17 +136,17 @@ return {
         root_dir = util.root_pattern('.git', '.marksman.toml', '_quarto.yml'),
       }
 
-      lspconfig.r_language_server.setup {
-        capabilities = capabilities,
-        flags = lsp_flags,
-        settings = {
-          r = {
-            lsp = {
-              rich_documentation = false,
-            },
-          },
-        },
-      }
+      -- lspconfig.r_language_server.setup {
+      --   capabilities = capabilities,
+      --   flags = lsp_flags,
+      --   settings = {
+      --     r = {
+      --       lsp = {
+      --         rich_documentation = false,
+      --       },
+      --     },
+      --   },
+      -- }
 
       lspconfig.cssls.setup {
         capabilities = capabilities,
@@ -185,11 +186,11 @@ return {
         flags = lsp_flags,
       }
 
-      lspconfig.tsserver.setup {
-        capabilities = capabilities,
-        flags = lsp_flags,
-        filetypes = { 'js', 'javascript', 'typescript', 'ojs' },
-      }
+      -- lspconfig.tsserver.setup {
+      --   capabilities = capabilities,
+      --   flags = lsp_flags,
+      --   filetypes = { 'js', 'javascript', 'typescript', 'ojs' },
+      -- }
 
       local function get_quarto_resource_path()
         local function strsplit(s, delimiter)
