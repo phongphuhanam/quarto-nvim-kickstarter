@@ -7,6 +7,7 @@ return {
       { 'nvim-telescope/telescope-ui-select.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       { 'nvim-telescope/telescope-dap.nvim' },
+      { 'nvim-telescope/telescope-live-grep-args.nvim' },
       {
         'jmbuhr/telescope-zotero.nvim',
         enabled = true,
@@ -44,6 +45,9 @@ return {
       -- I don't want to search in the `docs` directory (rendered quarto output).
       table.insert(vimgrep_arguments, '--glob')
       table.insert(vimgrep_arguments, '!docs/*')
+
+      local live_grep_args_shortcuts = require 'telescope-live-grep-args.shortcuts'
+      vim.keymap.set('n', '<leader>fr', live_grep_args_shortcuts.grep_word_under_cursor, { desc = 'Find word under cursor' })
 
       telescope.setup {
         defaults = {
@@ -106,6 +110,7 @@ return {
       telescope.load_extension 'ui-select'
       telescope.load_extension 'dap'
       telescope.load_extension 'zotero'
+      telescope.load_extension 'live_grep_args'
     end,
   },
 
