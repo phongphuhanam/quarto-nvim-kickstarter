@@ -2,9 +2,9 @@ return {
 
   -- disables hungry features for files larget than 2MB
   { 'LunarVim/bigfile.nvim' },
-  
+
   -- replaces the word under the cursor and changes it throughout the current file
-  { "AbilityJLR/replace-words-lazy.nvim" },
+  { 'AbilityJLR/replace-words-lazy.nvim' },
   -- add/delete/change can be done with the keymaps
   -- ys{motion}{char}, ds{char}, and cs{target}{replacement}
   {
@@ -32,7 +32,7 @@ return {
     'stevearc/conform.nvim',
     enabled = true,
     keys = {
-      { '<leader>cf', '<cmd>lua require("conform").format()<cr>', desc = "[f]ormat" },
+      { '<leader>cf', '<cmd>lua require("conform").format()<cr>', desc = '[f]ormat' },
     },
     config = function()
       require('conform').setup {
@@ -44,6 +44,7 @@ return {
         formatters_by_ft = {
           lua = { 'mystylua' },
           python = { 'isort', 'black' },
+          json = { 'fixjson' },
           quarto = { 'injected' },
         },
         formatters = {
