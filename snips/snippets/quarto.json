@@ -358,9 +358,9 @@
       "conwhenfmt"
     ],
     "body": [
-      "::: {.content-visible when-format=\"$0\"}",
+      "::::::: {.content-visible when-format=\"$0\"}",
       "$1",
-      ":::"
+      ":::::::"
     ]
   },
   "lay": {
