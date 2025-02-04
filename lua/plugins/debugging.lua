@@ -100,6 +100,7 @@ return {
       { '<F7>', ":lua require'dap'.step_out()<cr>", desc = 'debug out' },
       { '<F8>', ":lua require'dap'.continue()<cr>", desc = 'debug continue' },
       { '<F9>', ":lua require'dapui'.toggle()<cr>", desc = 'open debug ui' },
+      { '<F10>', ":lua require'dap'.toggle_breakpoint()<cr>", desc = 'debug breakpoint' },
       { '<leader>dr', ":lua require'dap'.repl_open()<cr>", desc = 'debug [r]epl' },
       { '<leader>du', ":lua require'dapui'.toggle()<cr>", desc = 'debug [u]i' },
       { 'ge', ":lua require'dap.ui.widgets'.hover()<cr>", desc = 'debug hov[e]r' },
