@@ -73,9 +73,6 @@ return {
           local function map(keys, func, desc)
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
-          local function vmap(keys, func, desc)
-            vim.keymap.set('v', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
-          end
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           assert(client, 'LSP client not found')
@@ -289,22 +286,22 @@ return {
       end
       capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
-      -- lspconfig.pyright.setup {
-      --   capabilities = capabilities,
-      --   flags = lsp_flags,
-      --   settings = {
-      --     python = {
-      --       analysis = {
-      --         autoSearchPaths = true,
-      --         useLibraryCodeForTypes = true,
-      --         diagnosticMode = 'workspace',
-      --       },
-      --     },
-      --   },
-      --   root_dir = function(fname)
-      --     return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname)
-      --   end,
-      -- }
+      lspconfig.pyright.setup {
+        capabilities = capabilities,
+        flags = lsp_flags,
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = 'workspace',
+            },
+          },
+        },
+        root_dir = function(fname)
+          return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname)
+        end,
+      }
 
     end,
   },
