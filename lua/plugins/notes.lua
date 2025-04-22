@@ -22,7 +22,7 @@ return {
   {
     'epwalsh/obsidian.nvim',
     enabled = true,
-    -- lazy = false,
+    lazy = false,
     ft = 'markdown',
     dependencies = {
       'nvim-lua/plenary.nvim',

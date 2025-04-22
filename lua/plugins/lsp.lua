@@ -11,7 +11,7 @@ return {
     },
     opts = {
       buffers = {
-        write_to_disk = true,
+        write_to_disk = false,
       }
     },
   },

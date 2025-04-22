@@ -37,6 +37,7 @@ return {
       keymap = {
         preset = 'enter',
         ['<c-y>'] = { 'show_documentation', 'hide_documentation' },
+        ['<c-k>'] = {},
       },
       cmdline = {
         enabled = false,
@@ -52,7 +53,7 @@ return {
           lazydev = {
             name = 'LazyDev',
             module = 'lazydev.integrations.blink',
-            -- make lazydev completions top priority (see `:h blink.cmp`)
+            -- make lazydev completions top priority ()
             score_offset = 100,
           },
           git = {
