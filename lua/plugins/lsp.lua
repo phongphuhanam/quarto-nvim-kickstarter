@@ -2,7 +2,7 @@ return {
 
   { -- for lsp features in code cells / embedded code
     'jmbuhr/otter.nvim',
-    dev = true,
+    dev = false,
     dependencies = {
       {
         'neovim/nvim-lspconfig',
@@ -167,6 +167,12 @@ return {
       }
 
       lspconfig.jsonls.setup {
+        capabilities = capabilities,
+        flags = lsp_flags,
+      }
+
+
+      lspconfig.texlab.setup {
         capabilities = capabilities,
         flags = lsp_flags,
       }
