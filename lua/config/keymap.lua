@@ -281,7 +281,7 @@ local function new_terminal_r()
 end
 
 local function new_terminal_ipython()
-  new_terminal 'ipython --no-confirm-exit'
+  new_terminal 'ipython --no-confirm-exit --no-autoindent'
 end
 
 local function new_terminal_julia()
