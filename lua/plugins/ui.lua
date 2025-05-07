@@ -369,11 +369,12 @@ return {
 
   { -- highlight markdown headings and code blocks etc.
     'MeanderingProgrammer/render-markdown.nvim',
-    enabled = false,
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    ft = {'quarto', 'markdown'},
+    enabled = true,
+    -- ft = {'quarto', 'markdown'},
+    ft = { 'markdown'},
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter' },
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {
@@ -403,7 +404,7 @@ return {
   { -- show images in nvim!
     '3rd/image.nvim',
     enabled = true,
-    dev = false,
+    dev = true,
     -- fix to commit to keep using the rockspeck for image magick
     ft = { 'markdown', 'quarto', 'vimwiki' },
     cond = function()
@@ -431,18 +432,17 @@ return {
           markdown = {
             enabled = true,
             only_render_image_at_cursor = true,
-            -- only_render_image_at_cursor_mode = "popup",
+            only_render_image_at_cursor_mode = "popup",
             filetypes = { 'markdown', 'vimwiki', 'quarto' },
           },
         },
         editor_only_render_when_focused = false,
         window_overlap_clear_enabled = true,
         tmux_show_only_in_active_window = true,
-        window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', 'scrollview', 'scrollview_sign' },
-        max_width = 100,
-        max_height = 14,
-        max_height_window_percentage = math.huge,
-        max_width_window_percentage = math.huge,
+        max_width = nil,
+        max_height = nil,
+        max_width_window_percentage = nil,
+        max_height_window_percentage = 30,
         kitty_method = 'normal',
       }
 

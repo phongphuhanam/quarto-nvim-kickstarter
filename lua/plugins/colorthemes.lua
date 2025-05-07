@@ -1,4 +1,8 @@
 return {
+  { 'Mofiqul/vscode.nvim', enabled = true, lazy = false, priority = 1000, opts = {} },
+  { 'slugbyte/lackluster.nvim', enabled = true, lazy = false, priority = 1000, opts = {} },
+  { 'projekt0n/github-nvim-theme', enabled = true, lazy = false, priority = 1000 } ,
+  { 'forest-nvim/sequoia.nvim', enabled = false, lazy = false, priority = 1000 },
   { 'shaunsingh/nord.nvim', enabled = false, lazy = false, priority = 1000 },
   { 'folke/tokyonight.nvim', enabled = false, lazy = false, priority = 1000 },
   { 'EdenEast/nightfox.nvim', enabled = false, lazy = false, priority = 1000 },
@@ -7,12 +11,13 @@ return {
     'catppuccin/nvim',
     name = 'catppuccin',
     enabled = false,
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
+    lazy = false,
+    priority = 1000,
   },
 
   {
     'armannikoyan/rusty',
+    enabled = false,
     lazy = false,
     priority = 1000,
     opts = {
@@ -27,12 +32,7 @@ return {
     enabled = false,
     lazy = false,
     priority = 1000,
-    config = function()
-      -- load the colorscheme here
-      require('night-owl').setup()
-      vim.cmd.colorscheme 'night-owl'
-      vim.api.nvim_set_hl(0, 'TermCursor', { fg = '#A6E3A1', bg = '#A6E3A1' })
-    end,
+    opts = {},
   },
 
   {
@@ -40,21 +40,7 @@ return {
     enabled = true,
     lazy = false,
     priority = 1000,
-    config = function()
-      require('kanagawa').setup {
-        colors = {
-          theme = {
-            all = {
-              ui = {
-                bg_gutter = 'none',
-              },
-            },
-          },
-        },
-      }
-      vim.cmd.colorscheme 'kanagawa'
-      vim.api.nvim_set_hl(0, 'TermCursor', { fg = '#A6E3A1', bg = '#A6E3A1' })
-    end,
+    opts = {},
   },
 
   {
