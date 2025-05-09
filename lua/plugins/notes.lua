@@ -1,7 +1,6 @@
 -- plugins for notetaking and knowledge management
 
 return {
-
   {
     'nvim-neorg/neorg',
     enabled = false,
@@ -20,7 +19,7 @@ return {
   },
 
   {
-    'epwalsh/obsidian.nvim',
+    'obsidian-nvim/obsidian.nvim',
     enabled = true,
     lazy = false,
     ft = 'markdown',
@@ -43,11 +42,8 @@ return {
       ---@diagnostic disable-next-line: missing-fields
       require('obsidian').setup {
         ui = {
+          checkboxes = { [' '] = {}, ['x'] = {} },
           enable = false,
-        },
-        completion = {
-          nvim_cmp = false,
-          min_chars = 2,
         },
         workspaces = {
           {
@@ -74,28 +70,6 @@ return {
           -- default_tags = { "daily-notes" },
           -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
           template = 'template-daily.md',
-        },
-        mappings = {
-          -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-          ['gf'] = {
-            action = function()
-              return require('obsidian').util.gf_passthrough()
-            end,
-            opts = { noremap = false, expr = true, buffer = true },
-          },
-          -- create and toggle checkboxes
-          ['<cr>'] = {
-            action = function()
-              local line = vim.api.nvim_get_current_line()
-              if line:match '%s*- %[' then
-                require('obsidian').util.toggle_checkbox()
-              elseif line:match '%s*-' then
-                vim.cmd [[s/-/- [ ]/]]
-                vim.cmd.nohlsearch()
-              end
-            end,
-            opts = { buffer = true },
-          },
         },
         -- Optional, customize how names/IDs for new notes are created.
         note_id_func = function(title)

@@ -9,8 +9,7 @@ return {
         'nvim-treesitter/nvim-treesitter',
       },
     },
-    opts = {
-    },
+    opts = {},
   },
 
   {
@@ -45,12 +44,29 @@ return {
       local lspconfig = require 'lspconfig'
       local util = require 'lspconfig.util'
 
-      require('mason').setup()
-      require('mason-lspconfig').setup {
-        automatic_installation = {
-          exclude = {
-            'rust_analyzer',
-          },
+      require('mason').setup {
+        ensure_installed = {
+          'lua-language-server',
+          'bash-language-server',
+          'css-lsp',
+          'html-lsp',
+          'json-lsp',
+          'haskell-language-server',
+          'pyright',
+          'r-languageserver',
+          'texlab',
+          'dotls',
+          'svelte-language-server',
+          'typescript-language-server',
+          'yaml-language-server',
+          'clangd',
+          'css-lsp',
+          'emmet-ls',
+          'html-lsp',
+          'sqlls'
+          -- 'julia-lsp'
+          -- 'rust-analyzer',
+          --'marksman',
         },
       }
       require('mason-tool-installer').setup {
@@ -77,20 +93,6 @@ return {
           ---@diagnostic disable-next-line: inject-field
           client.server_capabilities.document_formatting = true
 
-          --now builtin v0.10
-          -- map('K', vim.lsp.buf.hover, '[K] hover documentation')
-
-          --now builtin v0.11
-          -- • |grn| in Normal mode maps to |vim.lsp.buf.rename()|
-          -- • |grr| in Normal mode maps to |vim.lsp.buf.references()|
-          -- • |gri| in Normal mode maps to |vim.lsp.buf.implementation()|
-          -- • |gO| in Normal mode maps to |vim.lsp.buf.document_symbol()|
-          -- • |gra| in Normal and Visual mode maps to |vim.lsp.buf.code_action()|
-          -- map('<leader>lR', vim.lsp.buf.rename, '[l]sp [R]ename')
-          -- map('gr', vim.lsp.buf.references, '[g]o to [r]eferences')
-          -- map('gI', vim.lsp.buf.implementation, '[g]o to [I]mplementation')
-          -- map('gS', vim.lsp.buf.document_symbol, '[g]o so [S]ymbols')
-
           map('gd', vim.lsp.buf.definition, '[g]o to [d]efinition')
           map('gD', vim.lsp.buf.type_definition, '[g]o to type [D]efinition')
           map('<leader>lq', vim.diagnostic.setqflist, '[l]sp diagnostic [q]uickfix')
@@ -111,11 +113,11 @@ return {
       -- $home/.config/marksman/config.toml :
       -- [core]
       -- markdown.file_extensions = ["md", "markdown", "qmd"]
-      lspconfig.marksman.setup {
-        capabilities = capabilities,
-        filetypes = { 'markdown', 'quarto' },
-        root_dir = util.root_pattern('.git', '.marksman.toml', '_quarto.yml'),
-      }
+      -- lspconfig.marksman.setup {
+      --   capabilities = capabilities,
+      --   filetypes = { 'markdown', 'quarto' },
+      --   root_dir = util.root_pattern('.git', '.marksman.toml', '_quarto.yml'),
+      -- }
 
       lspconfig.r_language_server.setup {
         capabilities = capabilities,
@@ -167,7 +169,6 @@ return {
         capabilities = capabilities,
         flags = lsp_flags,
       }
-
 
       lspconfig.texlab.setup {
         capabilities = capabilities,
@@ -305,8 +306,6 @@ return {
           return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname)
         end,
       }
-
     end,
   },
 }
-
