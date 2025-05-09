@@ -1,4 +1,5 @@
 return {
+  { 'webhooked/oscura.nvim', enabled = true, lazy = false, priority = 1000, opts = {} },
   { 'Mofiqul/vscode.nvim', enabled = true, lazy = false, priority = 1000, opts = {} },
   { 'slugbyte/lackluster.nvim', enabled = true, lazy = false, priority = 1000, opts = {} },
   { 'projekt0n/github-nvim-theme', enabled = true, lazy = false, priority = 1000 } ,
