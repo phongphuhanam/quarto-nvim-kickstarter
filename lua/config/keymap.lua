@@ -221,6 +221,7 @@ wk.add({
   { 'n', 'nzzzv', desc = 'center search' },
   { 'z?', ':setlocal spell!<cr>', desc = 'toggle [z]pellcheck' },
   { 'zl', ':Telescope spell_suggest<cr>', desc = '[l]ist spelling suggestions' },
+  { '<F3>', ':Telescope lsp_definitions<cr>', desc = 'Telescope definition' },
 }, { mode = 'n', silent = true })
 
 -- visual mode
