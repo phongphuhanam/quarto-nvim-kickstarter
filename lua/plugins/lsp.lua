@@ -62,7 +62,10 @@ return {
 
       require('mason').setup()
       require('mason-lspconfig').setup {
-        automatic_installation = true,
+        ensure_installed = {
+          'pyright',
+        },
+        automatic_enable = false,
       }
       require('mason-tool-installer').setup {
         ensure_installed = {
