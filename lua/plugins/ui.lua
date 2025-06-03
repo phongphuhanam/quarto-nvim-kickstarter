@@ -297,7 +297,7 @@ return {
 
   { -- show indent lines
     'lukas-reineke/indent-blankline.nvim',
-    enabled = false,
+    enabled = true,
     main = 'ibl',
     opts = {
       indent = { char = '│' },
