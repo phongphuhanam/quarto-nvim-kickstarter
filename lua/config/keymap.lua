@@ -221,6 +221,7 @@ wk.add({
   { 'n', 'nzzzv', desc = 'center search' },
   { 'z?', ':setlocal spell!<cr>', desc = 'toggle [z]pellcheck' },
   { 'zl', ':Telescope spell_suggest<cr>', desc = '[l]ist spelling suggestions' },
+  { '<F3>', ':Telescope lsp_definitions<cr>', desc = 'Telescope definition' },
 }, { mode = 'n', silent = true })
 
 -- visual mode
@@ -250,7 +251,7 @@ wk.add({
 }, { mode = 'i' })
 
 local function new_terminal(lang)
-  vim.cmd('vsplit term://' .. lang)
+  vim.cmd('10split term://' .. lang)
 end
 
 local function new_terminal_python()
@@ -339,6 +340,13 @@ wk.add({
   { '<leader>gdc', ':DiffviewClose<cr>', desc = '[c]lose' },
   { '<leader>gdo', ':DiffviewOpen<cr>', desc = '[o]pen' },
   { '<leader>gs', ':Gitsigns<cr>', desc = 'git [s]igns' },
+  { '<leader>gh', group = 'git[h]ub cli tools' },
+  { '<leader>ghp', group = '[p]ull request' },
+  { '<leader>ghpl', ':Octo pr list<cr>', desc = 'list PRs' },
+  { '<leader>ghpm', ':Octo pr merge<cr>', desc = 'merge current PR' },
+  { '<leader>ghpr', ':Octo review<cr>', desc = 'review current PR' },
+  { '<leader>ghr', group = '[R]eview' },
+  { '<leader>ghrc', ':Octo review close<cr>', desc = 'Close Review' },
   {
     '<leader>gwc',
     ":lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>",

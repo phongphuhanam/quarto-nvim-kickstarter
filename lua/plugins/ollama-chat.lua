@@ -24,7 +24,7 @@ return {
     -- you can also choose "current" and "tmp"
     quick_chat_file = "ollama-chat.md",
     animate_spinner = true,  -- set this to false to disable spinner animation
-    model = "llama3.1",
+    model = "llama3.2",
     model_code = "codellama",
     url = (os.getenv("OLLAMA_HOST") or "127.0.0.1") .. ":" .. tonumber(os.getenv("OLLAMA_PORT") or 11434),
     serve = {

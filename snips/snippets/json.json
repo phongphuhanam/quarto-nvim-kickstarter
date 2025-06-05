@@ -9,5 +9,30 @@
         ],
         "description": "Insert Snippets",
         "prefix": "snip"
+    },
+    "VScodePython": {
+        "body": [
+            "{",
+            "\"name\": \"Python: Current File\",",
+            "\"type\": \"python\",",
+            "\"request\": \"launch\",",
+            "\"program\": \"${file}\",",
+            "\"console\": \"integratedTerminal\",",
+            "\"justMyCode\": true",
+            "},"
+        ],
+        "description": "Insert Python debugger",
+        "prefix": "vscodePythonDebugger"
+    },
+    "VScodeLaunch": {
+        "body": [
+            "{",
+            "\"version\": \"0.2.0\",",
+            "\"configurations\": [",
+            "]",
+            "}"
+        ],
+        "description": "Insert Python launch",
+        "prefix": "vscodePythonLaunch"
     }
 }

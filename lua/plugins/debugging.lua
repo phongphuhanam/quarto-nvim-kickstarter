@@ -28,6 +28,29 @@ return {
         'rcarriga/nvim-dap-ui',
         'mfussenegger/nvim-dap-python',
         'theHamsta/nvim-dap-virtual-text',
+        -- nvim-dap-ui is too big for smaller termial
+        -- {
+        --   'igorlfs/nvim-dap-view',
+        --   opts = {
+        --     winbar = {
+        --       show = true,
+        --       sections = { 'watches', 'exceptions', 'breakpoints', 'threads', 'repl' },
+        --       -- Must be one of the sections declared above
+        --       default_section = 'watches',
+        --     },
+        --     windows = {
+        --       height = 10,
+        --       terminal = {
+        --         -- 'left'|'right'|'above'|'below': Terminal position in layout
+        --         position = 'left',
+        --         -- List of debug adapters for which the terminal should be ALWAYS hidden
+        --         hide = {},
+        --         -- Hide the terminal when starting a new session
+        --         start_hidden = false,
+        --       },
+        --     },
+        --   },
+        -- },
       },
     },
     config = function()
@@ -48,6 +71,22 @@ return {
             run_last = '🔁',
             terminate = '❌',
             disconnect = '🆘',
+          },
+        },
+        layouts = {
+          {
+            elements = {
+              {
+                id = 'repl',
+                size = 0.5,
+              },
+              {
+                id = 'console',
+                size = 0.5,
+              },
+            },
+            position = 'bottom',
+            size = 10,
           },
         },
       }
@@ -76,18 +115,21 @@ return {
         end,
       }
 
-      dap.listeners.before.attach.dapui_config = function()
-        ui.open()
-      end
-      dap.listeners.before.launch.dapui_config = function()
-        ui.open()
-      end
-      dap.listeners.before.event_terminated.dapui_config = function()
-        ui.close()
-      end
-      dap.listeners.before.event_exited.dapui_config = function()
-        ui.close()
-      end
+      -- require('nvim-dap-view').setup {
+      --
+      -- }
+      -- dap.listeners.before.attach.dapui_config = function()
+      --   ui.open()
+      -- end
+      -- dap.listeners.before.launch.dapui_config = function()
+      --   ui.open()
+      -- end
+      -- dap.listeners.before.event_terminated.dapui_config = function()
+      --   ui.close()
+      -- end
+      -- dap.listeners.before.event_exited.dapui_config = function()
+      --   ui.close()
+      -- end
     end,
     keys = {
       { '<leader>db', ":lua require'dap'.toggle_breakpoint()<cr>", desc = 'debug [b]reakpoint' },
@@ -99,10 +141,13 @@ return {
       { '<F6>', ":lua require'dap'.step_over()<cr>", desc = 'debug over' },
       { '<F7>', ":lua require'dap'.step_out()<cr>", desc = 'debug out' },
       { '<F8>', ":lua require'dap'.continue()<cr>", desc = 'debug continue' },
+      -- { '<F9>', ":lua require'dap-view'.toggle()<cr>", desc = 'toogle dap-view ui' },
+      { '<F9>', ":lua require'dapui'.toggle()<cr>", desc = 'toogle dap-view ui' },
+      { '<F10>', ":lua require'dap'.toggle_breakpoint()<cr>", desc = 'debug breakpoint' },
       { '<leader>dr', ":lua require'dap'.repl_open()<cr>", desc = 'debug [r]epl' },
       { '<leader>du', ":lua require'dapui'.toggle()<cr>", desc = 'debug [u]i' },
-      { 'ge', ":lua require'dap.ui.widgets'.hover()<cr>", desc = 'debug hov[e]r' },
-      { 'gv', ":lua require'dapui'.eval()<cr>", desc = 'debug e[v]al' },
+      -- { 'ge', ":lua require'dap.ui.widgets'.hover()<cr>", desc = 'debug hov[e]r' },
+      { 'ge', ":lua require'dapui'.eval()<cr>", desc = 'debug [e]val' },
       { 'gp', ":lua require'dapui'.eval(require'dapui.util'.get_current_expr() .. '.shape')<cr>", 'debug eval shape' },
     },
   },
