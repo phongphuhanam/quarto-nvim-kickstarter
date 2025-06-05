@@ -97,7 +97,7 @@ return {
 
   { -- gh copilot
     'zbirenbaum/copilot.lua',
-    enabled = true,
+    enabled = false,
     config = function()
       require('copilot').setup {
         suggestion = {
@@ -138,18 +138,36 @@ return {
             enabled = true,
           },
         },
+        adapters = {
+          ollama = function()
+            return require('codecompanion.adapters').extend('ollama', {
+              name = 'llama3.1',
+              env = {
+                url = (os.getenv 'OLLAMA_HOST' or '127.0.0.1') .. ':' .. tonumber(os.getenv 'OLLAMA_PORT' or 11434),
+                -- api_key = "OLLAMA_API_KEY",
+              },
+              headers = {
+                ['Content-Type'] = 'application/json',
+                -- ["Authorization"] = "Bearer ${api_key}",
+              },
+              parameters = {
+                sync = true,
+              },
+            })
+          end,
+        },
         strategies = {
           chat = {
-            -- adapter = "ollama",
-            adapter = 'copilot',
+            adapter = 'ollama',
+            -- adapter = 'copilot',
           },
           inline = {
-            -- adapter = "ollama",
-            adapter = 'copilot',
+            adapter = 'ollama',
+            -- adapter = 'copilot',
           },
           agent = {
-            -- adapter = "ollama",
-            adapter = 'copilot',
+            adapter = 'ollama',
+            -- adapter = 'copilot',
           },
         },
       }
