@@ -42,6 +42,18 @@ return {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       { 'nvim-telescope/telescope-dap.nvim' },
       {
+        'nvim-telescope/telescope-live-grep-args.nvim',
+        config = function()
+          local live_grep_args_shortcuts = require 'telescope-live-grep-args.shortcuts'
+          vim.keymap.set(
+            'n',
+            '<leader>fr',
+            live_grep_args_shortcuts.grep_word_under_cursor,
+            { desc = 'Find word under cursor' }
+          )
+        end,
+      },
+      {
         'jmbuhr/telescope-zotero.nvim',
         dev = false,
         dependencies = {
@@ -371,7 +383,7 @@ return {
     'MeanderingProgrammer/render-markdown.nvim',
     enabled = true,
     -- ft = {'quarto', 'markdown'},
-    ft = { 'markdown'},
+    ft = { 'markdown' },
     -- dependencies = { 'nvim-treesitter/nvim-treesitter' },
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
@@ -393,7 +405,7 @@ return {
         style = 'full',
         border = 'thin',
         sign = false,
-        render_modes = { 'i', 'v', 'V' }
+        render_modes = { 'i', 'v', 'V' },
       },
       signs = {
         enabled = false,
@@ -432,7 +444,7 @@ return {
           markdown = {
             enabled = true,
             only_render_image_at_cursor = true,
-            only_render_image_at_cursor_mode = "popup",
+            only_render_image_at_cursor_mode = 'popup',
             filetypes = { 'markdown', 'vimwiki', 'quarto' },
           },
         },
