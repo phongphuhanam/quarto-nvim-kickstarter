@@ -381,6 +381,15 @@ return {
     end,
   },
 
+  { -- show indent lines
+    'lukas-reineke/indent-blankline.nvim',
+    enabled = true,
+    main = 'ibl',
+    opts = {
+      indent = { char = '│' },
+    },
+  },
+
   { -- highlight markdown headings and code blocks etc.
     'MeanderingProgrammer/render-markdown.nvim',
     enabled = true,

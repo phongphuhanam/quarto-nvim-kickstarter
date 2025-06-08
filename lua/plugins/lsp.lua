@@ -44,30 +44,12 @@ return {
       local lspconfig = require 'lspconfig'
       local util = require 'lspconfig.util'
 
-      require('mason').setup {
+      require('mason').setup()
+      require('mason-lspconfig').setup {
         ensure_installed = {
-          'lua-language-server',
-          'bash-language-server',
-          'css-lsp',
-          'html-lsp',
-          'json-lsp',
-          'haskell-language-server',
           'pyright',
-          'r-languageserver',
-          'texlab',
-          'dotls',
-          'svelte-language-server',
-          'typescript-language-server',
-          'yaml-language-server',
-          'clangd',
-          'css-lsp',
-          'emmet-ls',
-          'html-lsp',
-          'sqlls'
-          -- 'julia-lsp'
-          -- 'rust-analyzer',
-          --'marksman',
         },
+        automatic_enable = false,
       }
       require('mason-tool-installer').setup {
         ensure_installed = {
