@@ -1,16 +1,61 @@
 return {
+
+  ---@module "neominimap.config.meta"
+  {
+    'Isrothy/neominimap.nvim',
+    version = 'v3.*.*',
+    enabled = true,
+    dependencies = {
+      'lewis6991/gitsigns.nvim',
+    },
+    -- Optional
+    init = function()
+      -- The following options are recommended when layout == "float"
+      vim.opt.wrap = false
+      vim.opt.sidescrolloff = 36 -- Set a large value
+
+      --- Put your configuration here
+      ---@type Neominimap.UserConfig
+      vim.g.neominimap = {
+        auto_enable = false,
+      }
+    end,
+  },
+
+  { -- nice quickfix list
+    'stevearc/quicker.nvim',
+    event = 'FileType qf',
+    opts = {
+      winfixheight = false,
+      wrap = true,
+    },
+  },
+  -- { -- more qf improvements
+  --   'romainl/vim-qf'
+  -- },
+
   -- telescope
   -- a nice seletion UI also to find and open files
   {
     'nvim-telescope/telescope.nvim',
     dependencies = {
-      { 'nvim-telescope/telescope-ui-select.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       { 'nvim-telescope/telescope-dap.nvim' },
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
       {
+        'nvim-telescope/telescope-live-grep-args.nvim',
+        config = function()
+          local live_grep_args_shortcuts = require 'telescope-live-grep-args.shortcuts'
+          vim.keymap.set(
+            'n',
+            '<leader>fr',
+            live_grep_args_shortcuts.grep_word_under_cursor,
+            { desc = 'Find word under cursor' }
+          )
+        end,
+      },
+      {
         'jmbuhr/telescope-zotero.nvim',
-        enabled = true,
         dev = false,
         dependencies = {
           { 'kkharji/sqlite.lua' },
@@ -46,19 +91,41 @@ return {
       table.insert(vimgrep_arguments, '--glob')
       table.insert(vimgrep_arguments, '!docs/*')
 
-      local live_grep_args_shortcuts = require 'telescope-live-grep-args.shortcuts'
-      vim.keymap.set('n', '<leader>fr', live_grep_args_shortcuts.grep_word_under_cursor, { desc = 'Find word under cursor' })
+      table.insert(vimgrep_arguments, '--glob')
+      table.insert(vimgrep_arguments, '!_site/*')
+
+      table.insert(vimgrep_arguments, '--glob')
+      table.insert(vimgrep_arguments, '!_reference/*')
+
+      table.insert(vimgrep_arguments, '--glob')
+      table.insert(vimgrep_arguments, '!_inv/*')
+
+      table.insert(vimgrep_arguments, '--glob')
+      table.insert(vimgrep_arguments, '!*_files/libs/*')
+
+      table.insert(vimgrep_arguments, '--glob')
+      table.insert(vimgrep_arguments, '!.obsidian/*')
+
+      table.insert(vimgrep_arguments, '--glob')
+      table.insert(vimgrep_arguments, '!.quarto/*')
+
+      table.insert(vimgrep_arguments, '--glob')
+      table.insert(vimgrep_arguments, '!_freeze/*')
 
       telescope.setup {
         defaults = {
           buffer_previewer_maker = new_maker,
           vimgrep_arguments = vimgrep_arguments,
           file_ignore_patterns = {
-            'node_modules',
+            'node%_modules',
             '%_cache',
-            '.git/',
-            'site_libs',
-            '.venv',
+            '%.git/',
+            'site%_libs',
+            '%.venv/',
+            '%_files/libs/',
+            '%.obsidian/',
+            '%.quarto/',
+            '%_freeze/',
           },
           layout_strategy = 'flex',
           sorting_strategy = 'ascending',
@@ -82,6 +149,7 @@ return {
               'rg',
               '--files',
               '--hidden',
+              -- '--no-ignore',
               '--glob',
               '!.git/*',
               '--glob',
@@ -95,9 +163,6 @@ return {
           },
         },
         extensions = {
-          ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
-          },
           fzf = {
             fuzzy = true, -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
@@ -107,7 +172,6 @@ return {
         },
       }
       telescope.load_extension 'fzf'
-      telescope.load_extension 'ui-select'
       telescope.load_extension 'dap'
       telescope.load_extension 'zotero'
       telescope.load_extension 'live_grep_args'
@@ -195,15 +259,27 @@ return {
     enabled = false,
   },
 
+  {
+    'NStefan002/screenkey.nvim',
+    lazy = false,
+    opts = {
+      win_opts = {
+        row = 1,
+        col = vim.o.columns - 1,
+        anchor = 'NE',
+      },
+    },
+  },
+
   { -- filetree
     'nvim-tree/nvim-tree.lua',
     enabled = true,
     keys = {
-      { '<c-b>', ':NvimTreeToggle<cr>', desc = 'toggle nvim-tree' },
+      { '<leader>ft', ':NvimTreeToggle<cr>', desc = 'toggle file [t]ree' },
     },
     config = function()
       require('nvim-tree').setup {
-        disable_netrw = true,
+        disable_netrw = false,
         update_focused_file = {
           enable = true,
         },
@@ -246,19 +322,29 @@ return {
   },
 
   { -- show tree of symbols in the current file
-    'simrat39/symbols-outline.nvim',
-    cmd = 'SymbolsOutline',
+    'hedyhli/outline.nvim',
+    cmd = 'Outline',
     keys = {
-      { '<leader>lo', ':SymbolsOutline<cr>', desc = 'symbols outline' },
+      { '<leader>lo', ':Outline<cr>', desc = 'symbols outline' },
     },
-    opts = {},
+    opts = {
+      providers = {
+        priority = { 'markdown', 'lsp', 'norg' },
+        -- Configuration for each provider (3rd party providers are supported)
+        lsp = {
+          -- Lsp client names to ignore
+          blacklist_clients = {},
+        },
+        markdown = {
+          -- List of supported ft's to use the markdown provider
+          filetypes = { 'markdown', 'quarto' },
+        },
+      },
+    },
   },
 
   { -- or show symbols in the current file as breadcrumbs
     'Bekaboo/dropbar.nvim',
-    enabled = function()
-      return vim.fn.has 'nvim-0.10' == 1
-    end,
     dependencies = {
       'nvim-telescope/telescope-fzf-native.nvim',
     },
@@ -295,49 +381,53 @@ return {
     end,
   },
 
-  { -- show indent lines
-    'lukas-reineke/indent-blankline.nvim',
-    enabled = false,
-    main = 'ibl',
-    opts = {
-      indent = { char = '│' },
-    },
-  },
-
   { -- highlight markdown headings and code blocks etc.
-    'lukas-reineke/headlines.nvim',
-    enabled = false,
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    config = function()
-      require('headlines').setup {
-        quarto = {
-          query = vim.treesitter.query.parse(
-            'markdown',
-            [[
-                (fenced_code_block) @codeblock
-                ]]
-          ),
-          codeblock_highlight = 'CodeBlock',
-          treesitter_language = 'markdown',
-        },
-        markdown = {
-          query = vim.treesitter.query.parse(
-            'markdown',
-            [[
-                (fenced_code_block) @codeblock
-                ]]
-          ),
-          codeblock_highlight = 'CodeBlock',
-        },
-      }
-    end,
+    'MeanderingProgrammer/render-markdown.nvim',
+    enabled = true,
+    -- ft = {'quarto', 'markdown'},
+    ft = { 'markdown' },
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {
+      render_modes = { 'n', 'c', 't' },
+      completions = {
+        lsp = { enabled = false },
+      },
+      heading = {
+        enabled = false,
+      },
+      paragraph = {
+        enabled = false,
+      },
+      code = {
+        enabled = true,
+        style = 'full',
+        border = 'thin',
+        sign = false,
+        render_modes = { 'i', 'v', 'V' },
+      },
+      signs = {
+        enabled = false,
+      },
+    },
   },
 
   { -- show images in nvim!
     '3rd/image.nvim',
     enabled = false,
     dev = false,
+    -- fix to commit to keep using the rockspeck for image magick
     ft = { 'markdown', 'quarto', 'vimwiki' },
+    cond = function()
+      -- Disable on Windows system
+      return vim.fn.has 'win32' ~= 1
+    end,
+    dependencies = {
+      'leafo/magick', -- that's a lua rock
+    },
     config = function()
       -- Requirements
       -- https://github.com/3rd/image.nvim?tab=readme-ov-file#requirements
@@ -347,7 +437,7 @@ return {
       -- sudo apt install libmagickwand-dev
       -- sudo apt install liblua5.1-0-dev
       -- sudo apt install lua5.1
-      -- sudo apt installl luajit
+      -- sudo apt install luajit
 
       local image = require 'image'
       image.setup {
@@ -356,14 +446,13 @@ return {
           markdown = {
             enabled = true,
             only_render_image_at_cursor = true,
+            only_render_image_at_cursor_mode = 'popup',
             filetypes = { 'markdown', 'vimwiki', 'quarto' },
           },
         },
         editor_only_render_when_focused = false,
         window_overlap_clear_enabled = true,
-        -- window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', 'scrollview' },
         tmux_show_only_in_active_window = true,
-        window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', 'scrollview', 'scrollview_sign' },
         max_width = nil,
         max_height = nil,
         max_width_window_percentage = nil,
@@ -429,5 +518,11 @@ return {
 
       vim.keymap.set('n', '<leader>ic', clear_all_images, { desc = 'image [c]lear' })
     end,
+  },
+
+  { -- interface with databases
+    'tpope/vim-dadbod',
+    'kristijanhusak/vim-dadbod-completion',
+    'kristijanhusak/vim-dadbod-ui',
   },
 }

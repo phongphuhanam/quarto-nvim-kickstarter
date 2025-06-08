@@ -1,11 +1,6 @@
-local ms = vim.lsp.protocol.Methods
-local handlers = require 'misc.handlers'
-
 return {
 
-  {
-
-    -- for lsp features in code cells / embedded code
+  { -- for lsp features in code cells / embedded code
     'jmbuhr/otter.nvim',
     dev = false,
     dependencies = {
@@ -42,17 +37,6 @@ return {
           },
         },
         { 'Bilal2453/luvit-meta', lazy = true }, -- optional `vim.uv` typings
-        { -- optional completion source for require statements and module annotations
-          'hrsh7th/nvim-cmp',
-          opts = function(_, opts)
-            opts.sources = opts.sources or {}
-            table.insert(opts.sources, {
-              name = 'lazydev',
-              group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-            })
-          end,
-        },
-        -- { "folke/neodev.nvim", enabled = false }, -- make sure to uninstall or disable neodev.nvim
       },
       { 'folke/neoconf.nvim', opts = {}, enabled = false },
     },
@@ -60,9 +44,30 @@ return {
       local lspconfig = require 'lspconfig'
       local util = require 'lspconfig.util'
 
-      require('mason').setup()
-      require('mason-lspconfig').setup {
-        automatic_installation = true,
+      require('mason').setup {
+        ensure_installed = {
+          'lua-language-server',
+          'bash-language-server',
+          'css-lsp',
+          'html-lsp',
+          'json-lsp',
+          'haskell-language-server',
+          'pyright',
+          'r-languageserver',
+          'texlab',
+          'dotls',
+          'svelte-language-server',
+          'typescript-language-server',
+          'yaml-language-server',
+          'clangd',
+          'css-lsp',
+          'emmet-ls',
+          'html-lsp',
+          'sqlls'
+          -- 'julia-lsp'
+          -- 'rust-analyzer',
+          --'marksman',
+        },
       }
       require('mason-tool-installer').setup {
         ensure_installed = {
@@ -82,9 +87,6 @@ return {
           local function map(keys, func, desc)
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
-          local function vmap(keys, func, desc)
-            vim.keymap.set('v', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
-          end
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           assert(client, 'LSP client not found')
@@ -92,19 +94,8 @@ return {
           ---@diagnostic disable-next-line: inject-field
           client.server_capabilities.document_formatting = true
 
-          map('gS', vim.lsp.buf.document_symbol, '[g]o so [S]ymbols')
-          map('gD', vim.lsp.buf.type_definition, '[g]o to type [D]efinition')
           map('gd', vim.lsp.buf.definition, '[g]o to [d]efinition')
-          map('K', vim.lsp.buf.hover, '[K] hover documentation')
-          map('gh', vim.lsp.buf.signature_help, '[g]o to signature [h]elp')
-          map('gI', vim.lsp.buf.implementation, '[g]o to [I]mplementation')
-          map('gr', vim.lsp.buf.references, '[g]o to [r]eferences')
-          map('[d', vim.diagnostic.goto_prev, 'previous [d]iagnostic ')
-          map(']d', vim.diagnostic.goto_next, 'next [d]iagnostic ')
-          map('<leader>ll', vim.lsp.codelens.run, '[l]ens run')
-          map('<leader>lR', vim.lsp.buf.rename, '[l]sp [R]ename')
-          map('<leader>lf', vim.lsp.buf.format, '[l]sp [f]ormat')
-          vmap('<leader>lf', vim.lsp.buf.format, '[l]sp [f]ormat')
+          map('gD', vim.lsp.buf.type_definition, '[g]o to type [D]efinition')
           map('<leader>lq', vim.diagnostic.setqflist, '[l]sp diagnostic [q]uickfix')
         end,
       })
@@ -114,26 +105,52 @@ return {
         debounce_text_changes = 150,
       }
 
-      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = require('misc.style').border })
-      vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = require('misc.style').border })
-      vim.lsp.handlers[ms.textDocument_definition] = handlers.telescope_handler_factory(ms.textDocument_definition, 'Definition')
-      vim.lsp.handlers[ms.textDocument_typeDefinition] = handlers.telescope_handler_factory(ms.textDocument_typeDefinition, 'Type Definition')
-      vim.lsp.handlers[ms.textDocument_references] = handlers.telescope_handler_factory(ms.textDocument_references, 'References')
-      vim.lsp.handlers[ms.textDocument_implementation] = handlers.telescope_handler_factory(ms.textDocument_implementation, 'Implementations')
-      vim.lsp.handlers[ms.textDocument_documentSymbol] = handlers.telescope_handler_factory(ms.textDocument_documentSymbol, 'Document Symbols')
-
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
+      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+      -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      -- capabilities.textDocument.completion.completionItem.snippetSupport = true
+      local capabilities = require('blink.cmp').get_lsp_capabilities({}, true)
 
       -- also needs:
       -- $home/.config/marksman/config.toml :
       -- [core]
       -- markdown.file_extensions = ["md", "markdown", "qmd"]
-      lspconfig.marksman.setup {
+      -- lspconfig.marksman.setup {
+      --   capabilities = capabilities,
+      --   filetypes = { 'markdown', 'quarto' },
+      --   root_dir = util.root_pattern('.git', '.marksman.toml', '_quarto.yml'),
+      -- }
+
+      -- lspconfig.r_language_server.setup {
+      --   capabilities = capabilities,
+      --   flags = lsp_flags,
+      --   filetypes = { 'r', 'rmd', 'rmarkdown' }, -- not directly using it for quarto (as that is handled by otter and often contains more languanges than just R)
+      --   settings = {
+      --     r = {
+      --       lsp = {
+      --         rich_documentation = true,
+      --       },
+      --     },
+      --   },
+      -- }
+
+      lspconfig.cssls.setup {
         capabilities = capabilities,
-        filetypes = { 'markdown', 'quarto' },
-        root_dir = util.root_pattern('.git', '.marksman.toml', '_quarto.yml'),
+        flags = lsp_flags,
+      }
+
+      -- lspconfig.html.setup {
+      --   capabilities = capabilities,
+      --   flags = lsp_flags,
+      -- }
+
+      -- lspconfig.emmet_language_server.setup {
+      --   capabilities = capabilities,
+      --   flags = lsp_flags,
+      -- }
+
+      lspconfig.svelte.setup {
+        capabilities = capabilities,
+        flags = lsp_flags,
       }
 
       lspconfig.yamlls.setup {
@@ -154,6 +171,47 @@ return {
         flags = lsp_flags,
       }
 
+      lspconfig.texlab.setup {
+        capabilities = capabilities,
+        flags = lsp_flags,
+      }
+
+      lspconfig.dotls.setup {
+        capabilities = capabilities,
+        flags = lsp_flags,
+      }
+
+      lspconfig.ts_ls.setup {
+        capabilities = capabilities,
+        flags = lsp_flags,
+        filetypes = { 'js', 'javascript', 'typescript', 'ojs' },
+      }
+
+      local function get_quarto_resource_path()
+        local function strsplit(s, delimiter)
+          local result = {}
+          for match in (s .. delimiter):gmatch('(.-)' .. delimiter) do
+            table.insert(result, match)
+          end
+          return result
+        end
+
+        local f = assert(io.popen('quarto --paths', 'r'))
+        local s = assert(f:read '*a')
+        f:close()
+        return strsplit(s, '\n')[2]
+      end
+
+      local lua_library_files = vim.api.nvim_get_runtime_file('', true)
+      local lua_plugin_paths = {}
+      local resource_path = get_quarto_resource_path()
+      if resource_path == nil then
+        vim.notify_once 'quarto not found, lua library files not loaded'
+      else
+        table.insert(lua_library_files, resource_path .. '/lua-types')
+        table.insert(lua_plugin_paths, resource_path .. '/lua-plugin/plugin.lua')
+      end
+
       lspconfig.lua_ls.setup {
         capabilities = capabilities,
         flags = lsp_flags,
@@ -164,13 +222,13 @@ return {
             },
             runtime = {
               version = 'LuaJIT',
-              -- plugin = lua_plugin_paths,
+              -- plugin = lua_plugin_paths, -- handled by lazydev
             },
             diagnostics = {
               disable = { 'trailing-space' },
             },
             workspace = {
-              -- library = lua_library_files,
+              -- library = lua_library_files, -- handled by lazydev
               checkThirdParty = false,
             },
             doc = {
@@ -181,6 +239,16 @@ return {
             },
           },
         },
+      }
+
+      lspconfig.vimls.setup {
+        capabilities = capabilities,
+        flags = lsp_flags,
+      }
+
+      lspconfig.julials.setup {
+        capabilities = capabilities,
+        flags = lsp_flags,
       }
 
       lspconfig.bashls.setup {
@@ -194,24 +262,19 @@ return {
       -- Like e.g. Haskell:
       -- lspconfig.hls.setup {
       --   capabilities = capabilities,
-      --   flags = lsp_flags
-      -- }
-
-      -- lspconfig.clangd.setup {
-      --   capabilities = capabilities,
       --   flags = lsp_flags,
+      --   filetypes = { 'haskell', 'lhaskell', 'cabal' },
       -- }
 
-      -- lspconfig.rust_analyzer.setup{
-      --   capabilities = capabilities,
-      --   settings = {
-      --     ['rust-analyzer'] = {
-      --       diagnostics = {
-      --         enable = false;
-      --       }
-      --     }
-      --   }
-      -- }
+      lspconfig.clangd.setup {
+        capabilities = capabilities,
+        flags = lsp_flags,
+      }
+
+      lspconfig.rust_analyzer.setup {
+        capabilities = capabilities,
+        flags = lsp_flags,
+      }
 
       -- lspconfig.ruff_lsp.setup {
       --   capabilities = capabilities,
@@ -241,7 +304,7 @@ return {
           },
         },
         root_dir = function(fname)
-          return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname) or util.path.dirname(fname)
+          return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname)
         end,
       }
     end,

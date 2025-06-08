@@ -8,14 +8,18 @@
 
 local check_version = function()
   if not vim.version.cmp then
-    vim.health.error(string.format("Neovim out of date: '%s'. Upgrade to latest stable or nightly", tostring(vim.version())))
+    vim.health.error(
+      string.format("Neovim out of date: '%s'. Upgrade to latest stable or nightly", tostring(vim.version()))
+    )
     return
   end
 
   if vim.version.cmp(vim.version(), { 0, 9, 4 }) >= 0 then
     vim.health.ok(string.format("Neovim version is: '%s'", tostring(vim.version())))
   else
-    vim.health.error(string.format("Neovim out of date: '%s'. Upgrade to latest stable or nightly", tostring(vim.version())))
+    vim.health.error(
+      string.format("Neovim out of date: '%s'. Upgrade to latest stable or nightly", tostring(vim.version()))
+    )
   end
 end
 
@@ -33,17 +37,25 @@ local check_external_reqs = function()
   return true
 end
 
+local function maybe_system(command)
+  local success, obj = pcall(vim.system, command, { text = true })
+  if not success then
+    return nil
+  end
+  local res = obj:wait()
+  if res.code ~= 0 then
+    return nil
+  end
+  return res.stdout
+end
+
 local check_image_dependencies = function()
   local backend = 'kitty'
 
   local shell
   if vim.fn.has 'nvim-0.10.0' == 1 then
     shell = function(command)
-      local obj = vim.system(command, { text = true }):wait()
-      if obj.code ~= 0 then
-        return nil
-      end
-      return obj.stdout
+      return maybe_system(command)
     end
   else
     vim.health.warn 'nvim < 0.10'
@@ -67,6 +79,7 @@ local check_image_dependencies = function()
 
   if backend == 'kitty' then
     -- check if kitty is available
+    print('kitty')
     local out = shell { 'kitty', '--version' }
     if out == nil then
       vim.health.warn 'kitty is not available'
@@ -79,6 +92,7 @@ local check_image_dependencies = function()
     end
     local v = vim.version.parse(kitty_version)
     local minimal = vim.version.parse '0.30.1'
+    assert(minimal, 'failed to parse version')
     if v and vim.version.cmp(v, minimal) < 0 then
       vim.health.warn 'kitty version is too old'
       return
@@ -107,6 +121,7 @@ local check_image_dependencies = function()
     local version = out:gsub('tmux (%d+%.%d+)([a-z])', '%1.' .. number)
     local v = vim.version.parse(version)
     local minimal = vim.version.parse '3.3.1'
+    assert(minimal, 'failed to parse version')
     if v and vim.version.cmp(v, minimal) < 0 then
       vim.health.warn 'tmux version is too old'
       return
@@ -114,7 +129,7 @@ local check_image_dependencies = function()
   end
 
   -- check if magick luarock is available
-  local ok, magick = pcall(require, 'magick')
+  local ok, _ = pcall(require, 'magick')
   if not ok then
     vim.health.warn 'magick luarock is not available'
     return

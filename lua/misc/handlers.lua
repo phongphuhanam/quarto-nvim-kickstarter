@@ -1,8 +1,12 @@
-local pickers = require "telescope.pickers"
-local conf = require("telescope.config").values
-local finders = require "telescope.finders"
-local make_entry = require "telescope.make_entry"
-local utils = require "telescope.utils"
+-- Custom handlers for LSP actions
+-- using telescope.nvim
+-- TODO: Some of theses don't work reliably
+-- so they are not used, yet.
+local pickers = require 'telescope.pickers'
+local conf = require('telescope.config').values
+local finders = require 'telescope.finders'
+local make_entry = require 'telescope.make_entry'
+local utils = require 'telescope.utils'
 local ms = vim.lsp.protocol.Methods
 
 local M = {}
@@ -12,7 +16,7 @@ local M = {}
 ---@param opts table
 ---@return vim.lsp.util.locations_to_items.ret[]
 local apply_action_handler = function(action, items, opts)
-  if action == "textDocument/references" and not opts.include_current_line then
+  if action == 'textDocument/references' and not opts.include_current_line then
     local lnum = vim.api.nvim_win_get_cursor(opts.winnr)[1]
     items = vim.tbl_filter(function(v)
       return not (v.filename == opts.curr_filepath and v.lnum == lnum)
@@ -20,26 +24,6 @@ local apply_action_handler = function(action, items, opts)
   end
 
   return items
-end
-
----@param items vim.lsp.util.locations_to_items.ret[]
----@param opts table
----@return vim.lsp.util.locations_to_items.ret[]
-local function filter_file_ignore_patters(items, opts)
-  local file_ignore_patterns = vim.F.if_nil(opts.file_ignore_patterns, conf.file_ignore_patterns)
-  file_ignore_patterns = file_ignore_patterns or {}
-  if vim.tbl_isempty(file_ignore_patterns) then
-    return items
-  end
-
-  return vim.tbl_filter(function(item)
-    for _, patt in ipairs(file_ignore_patterns) do
-      if string.match(item.filename, patt) then
-        return false
-      end
-    end
-    return true
-  end, items)
 end
 
 --- convert `item` type back to something we can pass to `vim.lsp.util.jump_to_location`
@@ -64,7 +48,7 @@ local function item_to_location(item, offset_encoding)
         line = line,
         character = character,
       },
-      ["end"] = {
+      ['end'] = {
         line = line,
         character = character,
       },
@@ -104,24 +88,22 @@ local symbols_sorter = function(symbols)
   return symbols
 end
 
-
 M.telescope_handler_factory = function(action, title)
-
   local opts = {
-    winnr = vim.api.nvim_get_current_win()
+    winnr = vim.api.nvim_get_current_win(),
   }
 
   if action == ms.textDocument_documentSymbol then
     return function(err, result, _, _)
       if err then
-        vim.api.nvim_err_writeln("Error when finding document symbols: " .. err.message)
+        vim.api.nvim_err_writeln('Error when finding document symbols: ' .. err.message)
         return
       end
 
       if not result or vim.tbl_isempty(result) then
-        utils.notify("builtin.lsp_document_symbols", {
-          msg = "No results from textDocument/documentSymbol",
-          level = "INFO",
+        utils.notify('builtin.lsp_document_symbols', {
+          msg = 'No results from textDocument/documentSymbol',
+          level = 'INFO',
         })
         return
       end
@@ -134,35 +116,35 @@ M.telescope_handler_factory = function(action, title)
       end
 
       if vim.tbl_isempty(locations) then
-        utils.notify("builtin.lsp_document_symbols", {
-          msg = "No document_symbol locations found",
-          level = "INFO",
+        utils.notify('builtin.lsp_document_symbols', {
+          msg = 'No document_symbol locations found',
+          level = 'INFO',
         })
         return
       end
 
-      opts.path_display = { "hidden" }
+      opts.path_display = { 'hidden' }
       pickers
-          .new(opts, {
-            prompt_title = "LSP Document Symbols",
-            finder = finders.new_table {
-              results = locations,
-              entry_maker = opts.entry_maker or make_entry.gen_from_lsp_symbols(opts),
-            },
-            previewer = conf.qflist_previewer(opts),
-            sorter = conf.prefilter_sorter {
-              tag = "symbol_type",
-              sorter = conf.generic_sorter(opts),
-            },
-            push_cursor_on_edit = true,
-            push_tagstack_on_edit = true,
-          })
-          :find()
+        .new(opts, {
+          prompt_title = 'LSP Document Symbols',
+          finder = finders.new_table {
+            results = locations,
+            entry_maker = opts.entry_maker or make_entry.gen_from_lsp_symbols(opts),
+          },
+          previewer = conf.qflist_previewer(opts),
+          sorter = conf.prefilter_sorter {
+            tag = 'symbol_type',
+            sorter = conf.generic_sorter(opts),
+          },
+          push_cursor_on_edit = true,
+          push_tagstack_on_edit = true,
+        })
+        :find()
     end
   else
     return function(err, result, ctx, _)
       if err then
-        vim.api.nvim_err_writeln("Error when executing " .. action .. " : " .. err.message)
+        vim.api.nvim_err_writeln('Error when executing ' .. action .. ' : ' .. err.message)
         return
       end
 
@@ -178,32 +160,31 @@ M.telescope_handler_factory = function(action, title)
       local offset_encoding = vim.lsp.get_client_by_id(ctx.client_id).offset_encoding
       local items = vim.lsp.util.locations_to_items(locations, offset_encoding)
       items = apply_action_handler(action, items, opts)
-      items = filter_file_ignore_patters(items, opts)
 
       if vim.tbl_isempty(items) then
         utils.notify(title, {
-          msg = string.format("No %s found", title),
-          level = "INFO",
+          msg = string.format('No %s found', title),
+          level = 'INFO',
         })
         return
       end
 
-      if #items == 1 and opts.jump_type ~= "never" then
+      if #items == 1 and opts.jump_type ~= 'never' then
         local item = items[1]
         if opts.curr_filepath ~= item.filename then
           local cmd
-          if opts.jump_type == "tab" then
-            cmd = "tabedit"
-          elseif opts.jump_type == "split" then
-            cmd = "new"
-          elseif opts.jump_type == "vsplit" then
-            cmd = "vnew"
-          elseif opts.jump_type == "tab drop" then
-            cmd = "tab drop"
+          if opts.jump_type == 'tab' then
+            cmd = 'tabedit'
+          elseif opts.jump_type == 'split' then
+            cmd = 'new'
+          elseif opts.jump_type == 'vsplit' then
+            cmd = 'vnew'
+          elseif opts.jump_type == 'tab drop' then
+            cmd = 'tab drop'
           end
 
           if cmd then
-            vim.cmd(string.format("%s %s", cmd, item.filename))
+            vim.cmd(string.format('%s %s', cmd, item.filename))
           end
         end
 
@@ -211,22 +192,21 @@ M.telescope_handler_factory = function(action, title)
         vim.lsp.util.jump_to_location(location, offset_encoding, opts.reuse_win)
       else
         pickers
-            .new(opts, {
-              prompt_title = title,
-              finder = finders.new_table {
-                results = items,
-                entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
-              },
-              previewer = conf.qflist_previewer(opts),
-              sorter = conf.generic_sorter(opts),
-              push_cursor_on_edit = true,
-              push_tagstack_on_edit = true,
-            })
-            :find()
+          .new(opts, {
+            prompt_title = title,
+            finder = finders.new_table {
+              results = items,
+              entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
+            },
+            previewer = conf.qflist_previewer(opts),
+            sorter = conf.generic_sorter(opts),
+            push_cursor_on_edit = true,
+            push_tagstack_on_edit = true,
+          })
+          :find()
       end
     end
   end
 end
-
 
 return M

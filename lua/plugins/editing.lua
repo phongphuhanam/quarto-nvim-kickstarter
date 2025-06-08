@@ -1,10 +1,5 @@
 return {
 
-  -- disables hungry features for files larget than 2MB
-  { 'LunarVim/bigfile.nvim' },
-
-  -- replaces the word under the cursor and changes it throughout the current file
-  { 'AbilityJLR/replace-words-lazy.nvim' },
   -- add/delete/change can be done with the keymaps
   -- ys{motion}{char}, ds{char}, and cs{target}{replacement}
   {
@@ -42,16 +37,18 @@ return {
         --   lsp_fallback = true,
         -- },
         formatters_by_ft = {
-          lua = { 'mystylua' },
+          lua = { 'stylua' },
           python = { 'isort', 'black' },
           json = { 'fixjson' },
           quarto = { 'injected' },
+          markdown = { 'injected' },
+          r = { 'styler' },
         },
         formatters = {
-          mystylua = {
-            command = 'stylua',
-            args = { '--indent-type', 'Spaces', '--indent-width', '2', '-' },
-          },
+          -- mystylua = {
+          --   command = 'stylua',
+          --   args = { '--indent-type', 'Spaces', '--indent-width', '2', '-' },
+          -- },
         },
       }
       -- Customize the "injected" formatter
