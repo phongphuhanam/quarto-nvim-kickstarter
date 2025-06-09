@@ -24,11 +24,11 @@ return {
         dev = false,
         opts = { impersonate_nvim_cmp = true, enable_events = true, debug = true },
       },
-      {
-        'jmbuhr/cmp-pandoc-references',
-        dev = false,
-        ft = { 'quarto', 'markdown', 'rmarkdown' },
-      },
+      -- {
+      --   'jmbuhr/cmp-pandoc-references',
+      --   dev = false,
+      --   ft = { 'quarto', 'markdown', 'rmarkdown' },
+      -- },
       { 'kdheepak/cmp-latex-symbols' },
     },
     ---@module 'blink.cmp'
@@ -43,7 +43,7 @@ return {
         enabled = false,
       },
       sources = {
-        default = { 'lazydev', 'lsp', 'path', 'references', 'git', 'snippets', 'buffer', 'emoji' },
+        default = { 'lazydev', 'lsp', 'path', 'git', 'snippets', 'buffer', 'emoji' },
         providers = {
           emoji = {
             module = 'blink-emoji',
@@ -64,11 +64,11 @@ return {
               return vim.tbl_contains({ 'octo', 'gitcommit', 'git' }, vim.bo.filetype)
             end,
           },
-          references = {
-            name = 'pandoc_references',
-            module = 'cmp-pandoc-references.blink',
-            score_offset = 2,
-          },
+          -- references = {
+          --   name = 'pandoc_references',
+          --   module = 'cmp-pandoc-references.blink',
+          --   score_offset = 2,
+          -- },
           symbols = { name = 'symbols', module = 'blink.compat.source' },
         },
       },
