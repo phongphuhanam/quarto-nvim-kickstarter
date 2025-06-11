@@ -20,7 +20,7 @@ return {
 
   {
     'obsidian-nvim/obsidian.nvim',
-    enabled = true,
+    enabled = false,
     lazy = false,
     ft = 'markdown',
     dependencies = {
