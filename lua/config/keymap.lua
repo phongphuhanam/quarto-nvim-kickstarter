@@ -235,7 +235,7 @@ wk.add({
   { 'n', 'nzzzv', desc = 'center search' },
   { 'z?', ':setlocal spell!<cr>', desc = 'toggle [z]pellcheck' },
   { 'zl', ':Telescope spell_suggest<cr>', desc = '[l]ist spelling suggestions' },
-  { '<F3>', ':Telescope lsp_definitions<cr>', desc = 'Telescope definition' }
+  { '<F3>', ':Telescope lsp_definitions<cr>', desc = 'Telescope definition' },
 }, { mode = 'n', silent = true })
 
 -- visual mode
@@ -345,8 +345,13 @@ wk.add({
     { '<leader>d', group = '[d]ebug' },
     { '<leader>dt', group = '[t]est' },
     { '<leader>e', group = '[e]dit' },
-    { '<leader>e', group = '[t]mux' },
-    { '<leader>fd', [[eval "$(tmux showenv -s DISPLAY)"]], desc = '[d]isplay fix' },
+    {
+      '<leader>es',
+      ':lua require("spectre").open_visual({select_word=true})<cr>',
+      desc = 'Spectre [S]earch current word',
+    },
+    -- { '<leader>e', group = '[t]mux' },
+    -- { '<leader>fd', [[eval "$(tmux showenv -s DISPLAY)"]], desc = '[d]isplay fix' },
     { '<leader>f', group = '[f]ind (telescope)' },
     { '<leader>f<space>', '<cmd>Telescope buffers<cr>', desc = '[ ] buffers' },
     { '<leader>fM', '<cmd>Telescope man_pages<cr>', desc = '[M]an pages' },
