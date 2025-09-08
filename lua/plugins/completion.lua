@@ -16,7 +16,7 @@ return {
     -- build = 'cargo build --release',
     lazy = false,
     dependencies = {
-      { 'rafamadriz/friendly-snippets' },
+      { 'phongphuhanam/friendly-snippets' },
       { 'moyiz/blink-emoji.nvim' },
       { 'Kaiser-Yang/blink-cmp-git' },
       {
