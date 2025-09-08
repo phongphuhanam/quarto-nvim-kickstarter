@@ -1,7 +1,7 @@
 -- Custom Parameters (with defaults)
 return {
   {
-    "David-Kunz/gen.nvim",
+    "phongphuhanam/gen.nvim",
     enable = true,
     opts = {
       model = "llama3.1", -- The default model to use.
