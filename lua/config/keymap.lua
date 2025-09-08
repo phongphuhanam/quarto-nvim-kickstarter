@@ -235,6 +235,7 @@ wk.add({
   { 'n', 'nzzzv', desc = 'center search' },
   { 'z?', ':setlocal spell!<cr>', desc = 'toggle [z]pellcheck' },
   { 'zl', ':Telescope spell_suggest<cr>', desc = '[l]ist spelling suggestions' },
+  { '<F3>', ':Telescope lsp_definitions<cr>', desc = 'Telescope definition' },
 }, { mode = 'n', silent = true })
 
 -- visual mode
@@ -328,6 +329,13 @@ end
 wk.add({
   {
     { '<leader><cr>', send_cell, desc = 'run code cell' },
+    { '<leader>a', group = 'ch[a]t' },
+    { '<leader>aa', '<cmd>OllamaChat<cr>', desc = 'Ollama Ch[a]t' },
+    { '<leader>ag', '<cmd>Gen<cr>', desc = '[G]en' },
+    { '<leader>an', '<cmd>OllamaCreateNewChat<cr>', desc = 'Create Ollama [N]ew Chat' },
+    { '<leader>ao', '<cmd>OllamaContinueChat<cr>', desc = 'C[o]ntinue Ollama Chat' },
+    { '<leader>aq', ':OllamaQuickChat<cr>', desc = 'Ollama [Q]uick Chat' },
+    { '<leader>as', ':lua require("gen").select_model()<cr>', desc = 'Gen [S]elect model' },
     { '<leader>c', group = '[c]ode / [c]ell / [c]hunk' },
     { '<leader>ci', new_terminal_ipython, desc = 'new [i]python terminal' },
     { '<leader>cj', new_terminal_julia, desc = 'new [j]ulia terminal' },
@@ -337,8 +345,13 @@ wk.add({
     { '<leader>d', group = '[d]ebug' },
     { '<leader>dt', group = '[t]est' },
     { '<leader>e', group = '[e]dit' },
-    { '<leader>e', group = '[t]mux' },
-    { '<leader>fd', [[eval "$(tmux showenv -s DISPLAY)"]], desc = '[d]isplay fix' },
+    {
+      '<leader>es',
+      ':lua require("spectre").open_visual({select_word=true})<cr>',
+      desc = 'Spectre [S]earch current word',
+    },
+    -- { '<leader>e', group = '[t]mux' },
+    -- { '<leader>fd', [[eval "$(tmux showenv -s DISPLAY)"]], desc = '[d]isplay fix' },
     { '<leader>f', group = '[f]ind (telescope)' },
     { '<leader>f<space>', '<cmd>Telescope buffers<cr>', desc = '[ ] buffers' },
     { '<leader>fM', '<cmd>Telescope man_pages<cr>', desc = '[M]an pages' },
