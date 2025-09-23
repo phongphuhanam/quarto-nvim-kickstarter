@@ -61,6 +61,7 @@ return {
           'tree-sitter-cli',
           'jupytext',
           'fixjson',
+          'yq',
         },
       }
 

@@ -47,6 +47,7 @@ return {
           end,
           -- python = { 'isort', 'black' },
           json = { 'fixjson' },
+          yaml = { 'yq' },
           quarto = { 'injected' },
           markdown = { 'injected' },
           r = { 'styler' },
