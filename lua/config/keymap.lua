@@ -350,6 +350,7 @@ wk.add({
       ':lua require("spectre").open_visual({select_word=true})<cr>',
       desc = 'Spectre [S]earch current word',
     },
+    { '<leader>et', ':tabedit<cr>', desc = 'open new [t]ab' },
     -- { '<leader>e', group = '[t]mux' },
     -- { '<leader>fd', [[eval "$(tmux showenv -s DISPLAY)"]], desc = '[d]isplay fix' },
     { '<leader>f', group = '[f]ind (telescope)' },
