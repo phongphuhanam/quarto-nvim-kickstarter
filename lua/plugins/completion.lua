@@ -142,7 +142,7 @@ return {
           http = {
             ollama = function()
               return require('codecompanion.adapters').extend('ollama', {
-                name = 'llama3.1',
+                name = 'gpt-oss:latest',
                 env = {
                   url = (os.getenv 'OLLAMA_HOST' or '127.0.0.1') .. ':' .. tonumber(os.getenv 'OLLAMA_PORT' or 11434),
                   -- api_key = "OLLAMA_API_KEY",
