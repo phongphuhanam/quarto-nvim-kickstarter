@@ -139,22 +139,24 @@ return {
           },
         },
         adapters = {
-          ollama = function()
-            return require('codecompanion.adapters').extend('ollama', {
-              name = 'llama3.1',
-              env = {
-                url = (os.getenv 'OLLAMA_HOST' or '127.0.0.1') .. ':' .. tonumber(os.getenv 'OLLAMA_PORT' or 11434),
-                -- api_key = "OLLAMA_API_KEY",
-              },
-              headers = {
-                ['Content-Type'] = 'application/json',
-                -- ["Authorization"] = "Bearer ${api_key}",
-              },
-              parameters = {
-                sync = true,
-              },
-            })
-          end,
+          http = {
+            ollama = function()
+              return require('codecompanion.adapters').extend('ollama', {
+                name = 'llama3.1',
+                env = {
+                  url = (os.getenv 'OLLAMA_HOST' or '127.0.0.1') .. ':' .. tonumber(os.getenv 'OLLAMA_PORT' or 11434),
+                  -- api_key = "OLLAMA_API_KEY",
+                },
+                headers = {
+                  ['Content-Type'] = 'application/json',
+                  -- ["Authorization"] = "Bearer ${api_key}",
+                },
+                parameters = {
+                  sync = true,
+                },
+              })
+            end,
+          },
         },
         strategies = {
           chat = {
