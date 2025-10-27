@@ -148,11 +148,15 @@ return {
       { '<leader>du', ":lua require'dapui'.toggle()<cr>", desc = 'debug [u]i' },
       -- { 'ge', ":lua require'dap.ui.widgets'.hover()<cr>", desc = 'debug hov[e]r' },
       { 'ge', ":lua require'dapui'.eval()<cr>", desc = 'debug [e]val' },
-      { 'gp', ":lua require'dapui'.eval(require'dapui.util'.get_current_expr() .. '.shape')<cr>", 'debug eval shape' },
+      {
+        'gp',
+        ":lua require'dapui'.eval(require'dapui.util'.get_current_expr() .. '.shape')<cr>",
+        desc = 'debug eval shape',
+      },
       {
         'g1',
-        "lua require'dapui'.eval('cv2.imwrite(\"/dev/shm/' .. require'dapui.util'.get_current_expr() .. '.png\", ' .. require'dapui.util'.get_current_expr() .. ')')",
-        'save image with opencv',
+        ":lua require'dapui'.eval('cv2.imwrite(\"/dev/shm/' .. require'dapui.util'.get_current_expr() .. '.png\", ' .. require'dapui.util'.get_current_expr() .. ')')<cr>",
+        desc = 'save image with opencv',
       },
     },
   },
