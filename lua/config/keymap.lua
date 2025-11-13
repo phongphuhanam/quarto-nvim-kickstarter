@@ -23,7 +23,7 @@ local cmap = function(key, effect, desc)
   vim.keymap.set('c', key, effect, { silent = true, noremap = true, desc = desc })
 end
 
--- select last paste
+-- last paste
 nmap('gV', '`[v`]')
 
 -- move in command line
