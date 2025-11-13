@@ -62,27 +62,27 @@ vim.opt.completeopt = 'menuone,noinsert'
 -- global statusline
 vim.opt.laststatus = 3
 
-vim.cmd [[
-let g:currentmode={
-       \ 'n'  : '%#String# NORMAL ',
-       \ 'v'  : '%#Search# VISUAL ',
-       \ 's'  : '%#ModeMsg# VISUAL ',
-       \ "\<C-V>" : '%#Title# V·Block ',
-       \ 'V'  : '%#IncSearch# V·Line ',
-       \ 'Rv' : '%#String# V·Replace ',
-       \ 'i'  : '%#ModeMsg# INSERT ',
-       \ 'R'  : '%#Substitute# R ',
-       \ 'c'  : '%#CurSearch# Command ',
-       \ 't'  : '%#ModeMsg# TERM ',
-       \}
-]]
-
-math.randomseed(os.time())
-local i = math.random(#animals)
-vim.opt.statusline = '%{%g:currentmode[mode()]%} %{%reg_recording()%} %* %t | %y | %* %= c:%c l:%l/%L %p%% %#NonText# '
-  .. animals[i]
-  .. ' %*'
-
+-- vim.cmd [[
+-- let g:currentmode={
+--        \ 'n'  : '%#String# NORMAL ',
+--        \ 'v'  : '%#Search# VISUAL ',
+--        \ 's'  : '%#ModeMsg# VISUAL ',
+--        \ "\<C-V>" : '%#Title# V·Block ',
+--        \ 'V'  : '%#IncSearch# V·Line ',
+--        \ 'Rv' : '%#String# V·Replace ',
+--        \ 'i'  : '%#ModeMsg# INSERT ',
+--        \ 'R'  : '%#Substitute# R ',
+--        \ 'c'  : '%#CurSearch# Command ',
+--        \ 't'  : '%#ModeMsg# TERM ',
+--        \}
+-- ]]
+--
+-- math.randomseed(os.time())
+-- local i = math.random(#animals)
+-- vim.opt.statusline = '%{%g:currentmode[mode()]%} %{%reg_recording()%} %* %t | %y | %* %= c:%c l:%l/%L %p%% %#NonText# '
+--   .. animals[i]
+--   .. ' %*'
+--
 -- hide cmdline when not used
 vim.opt.cmdheight = 1
 
