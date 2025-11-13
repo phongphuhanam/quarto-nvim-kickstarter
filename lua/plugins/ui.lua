@@ -41,7 +41,6 @@ return {
     dependencies = {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       { 'nvim-telescope/telescope-dap.nvim' },
-      { 'nvim-telescope/telescope-live-grep-args.nvim' },
       {
         'nvim-telescope/telescope-live-grep-args.nvim',
         config = function()
@@ -52,16 +51,6 @@ return {
             live_grep_args_shortcuts.grep_word_under_cursor,
             { desc = 'Find word under cursor' }
           )
-        end,
-      },
-      {
-        'jmbuhr/telescope-zotero.nvim',
-        dev = false,
-        dependencies = {
-          { 'kkharji/sqlite.lua' },
-        },
-        config = function()
-          vim.keymap.set('n', '<leader>fz', ':Telescope zotero<cr>', { desc = '[z]otero' })
         end,
       },
     },
@@ -379,15 +368,6 @@ return {
       vim.keymap.set('n', ']t', next, { desc = 'next [t]rouble item' })
       vim.keymap.set('n', '[t', previous, { desc = 'previous [t]rouble item' })
     end,
-  },
-
-  { -- show indent lines
-    'lukas-reineke/indent-blankline.nvim',
-    enabled = true,
-    main = 'ibl',
-    opts = {
-      indent = { char = '│' },
-    },
   },
 
   { -- highlight markdown headings and code blocks etc.
