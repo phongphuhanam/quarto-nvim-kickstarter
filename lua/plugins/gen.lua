@@ -67,6 +67,17 @@ return {
                   url = (os.getenv 'OLLAMA_HOST' or '127.0.0.1') .. ':' .. tonumber(os.getenv 'OLLAMA_PORT' or 11434),
                   -- api_key = "OLLAMA_API_KEY",
                 },
+                schema = {
+                  model = {
+                    default = 'gpt-oss:latest',
+                  },
+                  num_ctx = {
+                    default = 16384,
+                  },
+                  keep_alive = {
+                    default = '5m',
+                  },
+                },
                 headers = {
                   ['Content-Type'] = 'application/json',
                   -- ["Authorization"] = "Bearer ${api_key}",
