@@ -55,9 +55,10 @@ return {
     },
     config = function()
       vim.fn.sign_define('DapBreakpoint', { text = '🦆', texthl = '', linehl = '', numhl = '' })
-      local dap = require 'dap'
+
       local ui = require 'dapui'
       -- https://github.com/rcarriga/nvim-dap-ui/issues/320
+
       local ui_config = {
         icons = { expanded = '📖', collapsed = '📕', current_frame = '👉' },
         controls = {
@@ -88,6 +89,17 @@ return {
             position = 'bottom',
             size = 10,
           },
+        },
+      }
+
+      local dap = require 'dap'
+      dap.configurations.python = {
+        {
+          type = 'python',
+          request = 'attach',
+          name = 'debugpy_attach_localhost:5678',
+          server = '127.0.0.1',
+          port = 5678,
         },
       }
 
