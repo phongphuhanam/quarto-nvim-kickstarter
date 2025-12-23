@@ -94,8 +94,8 @@ return {
       require('dapui').setup(ui_config)
       -- require('dapui').setup()
       require('dap-python').setup()
-      require('dap.ext.vscode').load_launchjs()
-
+      -- require('dap.ext.vscode').load_launchjs()
+      require('dap.ext.vscode').getconfigs()
       require('nvim-dap-virtual-text').setup {
         -- Hides tokens, secrets, and other sensitive information
         -- From TJ DeVries' config
@@ -137,6 +137,7 @@ return {
       { '<leader>do', ":lua require'dap'.step_over()<cr>", desc = 'debug [o]ver' },
       { '<leader>dO', ":lua require'dap'.step_out()<cr>", desc = 'debug [O]ut' },
       { '<leader>di', ":lua require'dap'.step_into()<cr>", desc = 'debug [i]nto' },
+      { '<F4>', ":lua require'dap'.run_to_cursor()<cr>", desc = 'debug [r]un to cursor' },
       { '<F5>', ":lua require'dap'.step_into()<cr>", desc = 'debug into' },
       { '<F6>', ":lua require'dap'.step_over()<cr>", desc = 'debug over' },
       { '<F7>', ":lua require'dap'.step_out()<cr>", desc = 'debug out' },
