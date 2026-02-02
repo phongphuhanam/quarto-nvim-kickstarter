@@ -341,6 +341,12 @@ vim.keymap.set('n', 'g1', function()
   end, 'save image with opencv')
 end, { desc = 'save image with opencv' })
 
+vim.keymap.set('n', 'g2', function()
+  eval_current_expr(function(expr)
+    return 'len(' .. expr .. ')'
+  end, 'get length of current variable')
+end, { desc = 'get length of current variable' })
+
 vim.keymap.set('n', '<leader>os', get_otter_symbols_lang, { desc = 'otter [s]ymbols' })
 
 local function toggle_conceal()
