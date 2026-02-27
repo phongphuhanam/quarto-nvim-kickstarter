@@ -25,8 +25,10 @@ return {
     dependencies = {
       {
         'nvim-neotest/nvim-nio',
+        -- https://github.com/rcarriga/nvim-dap-ui
         'rcarriga/nvim-dap-ui',
         'mfussenegger/nvim-dap-python',
+        -- https://github.com/theHamsta/nvim-dap-virtual-text
         'theHamsta/nvim-dap-virtual-text',
         -- nvim-dap-ui is too big for smaller termial
         -- {
@@ -160,7 +162,7 @@ return {
       { '<leader>dr', ":lua require'dap'.repl_open()<cr>", desc = 'debug [r]epl' },
       { '<leader>du', ":lua require'dapui'.toggle()<cr>", desc = 'debug [u]i' },
       -- { 'ge', ":lua require'dap.ui.widgets'.hover()<cr>", desc = 'debug hov[e]r' },
-      { 'ge', ":lua require'dapui'.eval()<cr>", desc = 'debug [e]val' },
+      { 'g3', ":lua require'dapui'.eval()<cr>", desc = 'debug [e]val' },
       -- {
       --   'gp',
       --   ":lua require'dapui'.eval(require'dapui.util'.get_current_expr() .. '.shape')<cr>",
