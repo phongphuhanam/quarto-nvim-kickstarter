@@ -1,29 +1,4 @@
 return {
-  {
-    'lervag/vimtex',
-    lazy = false, -- we don't want to lazy load VimTeX
-    -- tag = "v2.15", -- uncomment to pin to a specific release
-    init = function()
-      -- VimTeX configuration goes here, e.g.
-      vim.g.vimtex_view_method = 'zathura'
-
-      vim.g.vimtex_compiler_method = 'latexmk'
-      vim.g.vimtex_compiler_latexmk = {
-        out_dir = 'build',
-        options = { '-pdf', '-interaction=nonstopmode', '-synctex=1' },
-      }
-
-      vim.g.vimtex_doc_enabled = 0
-      vim.g.vimtex_complete_enabled = 0
-      vim.g.vimtex_syntax_enabled = 0
-      vim.g.vimtex_imaps_enabled = 0
-
-      vim.g.vimtex_view_forward_search_on_start = 0
-      -- vim.g.vimtex_view_method = 'general'
-      -- vim.g.vimtex_view_general_options = 'okular'
-      -- vim.g.vimtex_view_general_options = '--unique file:@pdf#src:@line@tex'
-    end,
-  },
   { -- requires plugins in lua/plugins/treesitter.lua and lua/plugins/lsp.lua
     -- for complete functionality (language features)
     'quarto-dev/quarto-nvim',
