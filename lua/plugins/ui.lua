@@ -171,9 +171,9 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false },
   },
-  -- https://github.com/barrettruth/canola.nvim
+
   { -- edit the file system as a buffer
-    'barrettruth/canola.nvim',
+    'stevearc/oil.nvim',
     opts = {
       keymaps = {
         ['<C-s>'] = false,
