@@ -1,4 +1,10 @@
 return {
+  -- https://github.com/chrisgrieser/nvim-lsp-endhints
+  {
+    'chrisgrieser/nvim-lsp-endhints',
+    event = 'LspAttach',
+    opts = {}, -- required, even if empty
+  },
   {
     'lervag/vimtex',
     lazy = false, -- we don't want to lazy load VimTeX
