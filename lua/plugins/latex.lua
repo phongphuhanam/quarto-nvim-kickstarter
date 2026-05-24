@@ -39,5 +39,6 @@ return {
       -- vim.g.vimtex_view_general_options = 'okular'
       -- vim.g.vimtex_view_general_options = '--unique file:@pdf#src:@line@tex'
     end,
+    vim.keymap.set('n', '<F2>', ':VimtexView<cr>', { desc = 'VimTexView current cursors' }),
   },
 }
