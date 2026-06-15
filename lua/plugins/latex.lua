@@ -25,7 +25,13 @@ return {
       vim.g.vimtex_compiler_method = 'latexmk'
       vim.g.vimtex_compiler_latexmk = {
         out_dir = '/dev/shm/vimtex_build/',
-        options = { '-pdf', '-interaction=nonstopmode', '-synctex=1' },
+        options = {
+          '-pdf',
+          '-interaction=nonstopmode',
+          '-synctex=1',
+          '-file-line-error',
+          '-max-print-line=200',
+        },
       }
 
       vim.g.vimtex_doc_enabled = 0
