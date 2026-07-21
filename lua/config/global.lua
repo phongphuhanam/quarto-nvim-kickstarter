@@ -18,6 +18,24 @@ vim.o.fillchars = 'eob: '
 vim.opt.number = true -- show linenumbers
 vim.opt.mouse = 'a' -- enable mouse
 vim.opt.mousefocus = true
+-- OSC 52 clipboard: lets yanks reach the local machine's clipboard even
+-- through SSH/tmux/docker, since it tunnels through the terminal escape
+-- sequence instead of needing a local X server/xclip/wl-copy.
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+    ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+  },
+  paste = {
+    ['+'] = function()
+      return vim.split(vim.fn.getreg '"', '\n')
+    end,
+    ['*'] = function()
+      return vim.split(vim.fn.getreg '"', '\n')
+    end,
+  },
+}
 vim.opt.clipboard:append 'unnamedplus' -- use system clipboard
 
 vim.opt.timeoutlen = 400 -- until which-key pops up
