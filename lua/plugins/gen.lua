@@ -4,7 +4,7 @@ return {
     'phongphuhanam/gen.nvim',
     enable = true,
     opts = {
-      model = 'gpt-oss:latest', -- The default model to use.
+      model = 'gemma4:latest', -- The default model to use.
       quit_map = 'q', -- set keymap for close the response window
       retry_map = '<c-r>', -- set keymap to re-send the current prompt
       accept_map = '<c-cr>', -- set keymap to replace the previous selection with the last result
@@ -69,7 +69,7 @@ return {
                 },
                 schema = {
                   model = {
-                    default = 'gpt-oss:latest',
+                    default = 'gemma4:latest',
                   },
                   num_ctx = {
                     default = 16384,
